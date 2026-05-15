@@ -1,0 +1,43 @@
+/* ===== YELLOW SCROLLING TICKER ===== */
+.ticker-banner {
+  background: #faeab1; /* Light yellow matching Ecomus */
+  overflow: hidden;
+  padding: 10px 0;
+  white-space: nowrap;
+}
+
+.ticker-track {
+  display: inline-flex;
+  gap: 0;
+  animation: tickerScroll 30s linear infinite;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 30px;
+}
+
+.ticker-icon {
+  display: flex;
+  align-items: center;
+  color: #1a1a1a;
+}
+
+.ticker-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-banner:hover .ticker-track {
+  animation-play-state: paused;
+}
