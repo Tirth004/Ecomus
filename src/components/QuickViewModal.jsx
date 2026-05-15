@@ -27,7 +27,7 @@ const QuickViewModal = ({ product, onClose }) => {
             <img src={product.image} alt={product.name} />
           </div>
           <div className="quickview-info">
-            <p style={{fontSize:12,color:'var(--text-secondary)',textTransform:'uppercase',letterSpacing:1}}>{product.category}</p>
+            <p style={{fontSize:12,color:'var(--text-secondary)',textTransform:'uppercase',letterSpacing:1}}>{product.category || 'Clothing'}</p>
             <h3 style={{fontSize:22,fontWeight:700,margin:'8px 0'}}>{product.name}</h3>
             <div className="product-price mb-3">
               {product.originalPrice ? (
@@ -36,7 +36,7 @@ const QuickViewModal = ({ product, onClose }) => {
                 <span className="price-regular">${product.price.toFixed(2)}</span>
               )}
             </div>
-            <p style={{fontSize:14,color:'var(--text-secondary)',marginBottom:20,lineHeight:1.7}}>{product.description}</p>
+            <p style={{fontSize:14,color:'var(--text-secondary)',marginBottom:20,lineHeight:1.7}}>{product.desc || product.description || 'Premium quality garment crafted with attention to detail.'}</p>
 
             {product.sizes && (
               <div className="size-selector">
@@ -51,11 +51,17 @@ const QuickViewModal = ({ product, onClose }) => {
 
             {product.colors && (
               <div className="color-selector mb-3">
-                <div className="size-label">Color</div>
+                <div className="size-label">Color: <strong>{typeof selectedColor === 'object' && selectedColor !== null ? selectedColor.name : selectedColor}</strong></div>
                 <div className="color-options">
-                  {product.colors.map((c,i) => (
-                    <button key={i} className={`color-option-btn${selectedColor===c?' active':''}`} style={{background:c,outline:c==selectedColor?'2px solid #1a1a1a':'none'}} onClick={() => setSelectedColor(c)} />
-                  ))}
+                  {product.colors.map((c,i) => {
+                    const hex = typeof c === 'object' && c !== null ? c.hex : c;
+                    const isActive = selectedColor === c || (typeof selectedColor === 'object' && selectedColor !== null && selectedColor.hex === hex) || selectedColor === hex;
+                    return (
+                      <button key={i} className={`color-option-btn${isActive?' active':''}`} 
+                        style={{background:hex,outline:isActive?'3px solid #1a1a1a':(hex==='#ffffff'||hex==='#fff'?'1px solid #ddd':'2px solid transparent'),outlineOffset:2}} 
+                        onClick={() => setSelectedColor(c)} />
+                    );
+                  })}
                 </div>
               </div>
             )}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import QuickViewModal from './QuickViewModal';
 
 const CDN = 'https://themesflat.co/html/ecomus/images';
 
@@ -291,6 +292,8 @@ const FeaturedProductsSection = () => {
           </div>
         )}
       </div>
+
+      {quickView && <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />}
 
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </section>
