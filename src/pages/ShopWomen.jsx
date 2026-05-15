@@ -6,7 +6,7 @@ import QuickViewModal from '../components/QuickViewModal';
 
 const CDN = 'https://themesflat.co/html/ecomus/images';
 
-const womenProducts = [
+export const womenProducts = [
   {
     id: 'w1', name: 'Ribbed Tank Top', price: 16.95,
     desc: "Button-up shirt sleeves and a relaxed silhouette. It's tailored with drapey, crinkle-texture fabric that's made from LENZING™ ECOVERO™ Viscose — responsibly sourced wood-based fibres produced through a process that reduces...",

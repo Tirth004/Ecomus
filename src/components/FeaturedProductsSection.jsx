@@ -6,7 +6,7 @@ import { useWishlist } from '../context/WishlistContext';
 const CDN = 'https://themesflat.co/html/ecomus/images';
 
 // Products matching the reference screenshot exactly
-const initialProducts = [
+export const initialProducts = [
   {
     id: 101,
     name: 'V-neck linen T-shirt',
@@ -46,7 +46,7 @@ const initialProducts = [
 ];
 
 // More products revealed when "Load more" is clicked
-const extraProducts = [
+export const extraProducts = [
   {
     id: 105,
     name: 'Classic Ribbed Tank Top',

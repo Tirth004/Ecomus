@@ -6,7 +6,7 @@ import QuickViewModal from '../components/QuickViewModal';
 
 const CDN = 'https://themesflat.co/html/ecomus/images';
 
-const menProducts = [
+export const menProducts = [
   { id: 'm1', name: 'V-neck linen T-shirt', price: 114.95, desc: 'A lightweight V-neck T-shirt crafted from breathable linen. Easy, breezy and perfect for warm days.', image: `${CDN}/products/brown-2.jpg`, hoverImage: `${CDN}/products/brown-3.jpg`, colors: [{ hex: '#c4854a', name: 'Brown' }, { hex: '#ffffff', name: 'White' }], sizes: ['XS', 'S', 'M', 'L', 'XL'], badge: null },
   { id: 'm2', name: 'Loose Fit Sweatshirt', price: 10.00, desc: 'A relaxed fit sweatshirt in soft fleece. Features a crew neck and dropped shoulders for an effortless look.', image: `${CDN}/products/light-green-1.jpg`, hoverImage: `${CDN}/products/light-green-2.jpg`, colors: [{ hex: '#b2d8b2', name: 'Light Green' }, { hex: '#1a1a1a', name: 'Black' }, { hex: '#2c5f8a', name: 'Blue' }, { hex: '#1e3a6e', name: 'Dark Blue' }, { hex: '#d0d8e4', name: 'Light Grey' }], sizes: ['S', 'M', 'L', 'XL', 'XXL'], badge: '-33%' },
   { id: 'm3', name: 'Regular Fit Oxford Shirt', price: 10.00, desc: 'A classic regular fit Oxford shirt in a soft, breathable cotton blend. Perfect for smart casual looks.', image: `${CDN}/products/black-4.jpg`, hoverImage: `${CDN}/products/black-5.jpg`, colors: [{ hex: '#1a1a1a', name: 'Black' }, { hex: '#1e3a6e', name: 'Dark Blue' }, { hex: '#c4a882', name: 'Beige' }, { hex: '#b0d0e0', name: 'Light Blue' }], sizes: ['S', 'M', 'L'], badge: null },

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { products } from '../data/products';
+import { initialProducts, extraProducts } from '../components/FeaturedProductsSection';
+import { menProducts } from './ShopMen';
+import { womenProducts } from './ShopWomen';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import ProductCard from '../components/ProductCard';
@@ -14,9 +17,22 @@ const StarRating = ({ rating }) => (
   </div>
 );
 
+const allProducts = [...products, ...initialProducts, ...extraProducts, ...menProducts, ...womenProducts];
+
 const ProductDetails = () => {
   const { id } = useParams();
-  const product = products.find(p => p.id === parseInt(id));
+  let product = allProducts.find(p => String(p.id) === String(id));
+  
+  if (product) {
+    product = {
+      rating: 4.5,
+      reviews: 12,
+      category: 'Clothing',
+      description: product.desc || product.description || 'Premium quality garment crafted with attention to detail. Comfortable, stylish, and perfect for your everyday wardrobe.',
+      ...product
+    };
+  }
+
   const { addToCart, setIsCartOpen } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [selectedImage, setSelectedImage] = useState(0);
@@ -36,7 +52,8 @@ const ProductDetails = () => {
   );
 
   const images = product.images || [product.image];
-  const related = products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 4);
+  let related = products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 4);
+  if (related.length === 0) related = products.filter(p => p.id !== product.id).slice(0, 4);
 
   const handleAddToCart = () => {
     addToCart(product, qty, selectedSize, selectedColor);
@@ -102,13 +119,17 @@ const ProductDetails = () => {
               {/* Colors */}
               {product.colors && (
                 <div className="color-selector">
-                  <div className="size-label">Color: <strong>{selectedColor}</strong></div>
+                  <div className="size-label">Color: <strong>{typeof selectedColor === 'object' ? selectedColor.name : selectedColor}</strong></div>
                   <div className="color-options">
-                    {product.colors.map((c,i) => (
-                      <button key={i} className={`color-option-btn${selectedColor===c?' active':''}`}
-                        style={{background:c,outline:selectedColor===c?'3px solid #1a1a1a':'2px solid transparent',outlineOffset:2}}
-                        onClick={() => setSelectedColor(c)} />
-                    ))}
+                    {product.colors.map((c,i) => {
+                      const hex = typeof c === 'object' ? c.hex : c;
+                      const isActive = selectedColor === c;
+                      return (
+                        <button key={i} className={`color-option-btn${isActive?' active':''}`}
+                          style={{background:hex,outline:isActive?'3px solid #1a1a1a':(hex==='#ffffff'||hex==='#fff'?'1px solid #ddd':'2px solid transparent'),outlineOffset:2}}
+                          onClick={() => setSelectedColor(c)} />
+                      )
+                    })}
                   </div>
                 </div>
               )}

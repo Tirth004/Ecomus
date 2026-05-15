@@ -5,7 +5,11 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('ecomus-cart')) || [];
+      const saved = JSON.parse(localStorage.getItem('ecomus-cart')) || [];
+      return saved.map(item => ({
+        ...item,
+        color: typeof item.color === 'object' && item.color !== null ? item.color.name : item.color
+      }));
     } catch { return []; }
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -15,18 +19,20 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (product, quantity = 1, size = null, color = null) => {
+    const colorStr = typeof color === 'object' && color !== null ? color.name : color;
+    
     setCartItems(prev => {
       const existing = prev.find(item => 
-        item.id === product.id && item.size === size && item.color === color
+        item.id === product.id && item.size === size && item.color === colorStr
       );
       if (existing) {
         return prev.map(item =>
-          item.id === product.id && item.size === size && item.color === color
+          item.id === product.id && item.size === size && item.color === colorStr
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prev, { ...product, quantity, size, color }];
+      return [...prev, { ...product, quantity, size, color: colorStr }];
     });
   };
 
