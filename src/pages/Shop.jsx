@@ -41,16 +41,16 @@ const Shop = () => {
     if (onlySale) list = list.filter(p => p.isSale);
     list = list.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
     switch (sort) {
-      case 'price-low': list.sort((a,b) => a.price - b.price); break;
-      case 'price-high': list.sort((a,b) => b.price - a.price); break;
-      case 'name-az': list.sort((a,b) => a.name.localeCompare(b.name)); break;
-      case 'rating': list.sort((a,b) => b.rating - a.rating); break;
+      case 'price-low': list.sort((a, b) => a.price - b.price); break;
+      case 'price-high': list.sort((a, b) => b.price - a.price); break;
+      case 'name-az': list.sort((a, b) => a.name.localeCompare(b.name)); break;
+      case 'rating': list.sort((a, b) => b.rating - a.rating); break;
       case 'newest': list = list.filter(p => p.isNew).concat(list.filter(p => !p.isNew)); break;
     }
     return list;
   }, [selectedCats, onlyNew, onlySale, priceRange, sort]);
 
-  const paginated = filtered.slice((page-1)*PAGE_SIZE, page*PAGE_SIZE);
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
 
   return (
@@ -80,10 +80,10 @@ const Shop = () => {
 
             <div className="filter-group">
               <div className="filter-title">Price Range</div>
-              <input type="range" min={0} max={200} value={priceRange[1]} onChange={e => setPriceRange([0, +e.target.value])} style={{width:'100%', accentColor:'var(--primary)'}} />
+              <input type="range" min={0} max={200} value={priceRange[1]} onChange={e => setPriceRange([0, +e.target.value])} style={{ width: '100%', accentColor: 'var(--primary)' }} />
               <div className="price-range-inputs">
-                <div style={{fontSize:13, color:'var(--text-secondary)'}}>$0</div>
-                <div style={{fontSize:13, fontWeight:600}}>Max: ${priceRange[1]}</div>
+                <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>$0</div>
+                <div style={{ fontSize: 13, fontWeight: 600 }}>Max: ${priceRange[1]}</div>
               </div>
             </div>
 
@@ -99,7 +99,7 @@ const Shop = () => {
               </div>
             </div>
 
-            <button className="btn-outline-custom w-100 mt-3" onClick={() => { setSelectedCats([]); setPriceRange([0,200]); setOnlyNew(false); setOnlySale(false); setSort('default'); }}>
+            <button className="btn-outline-custom w-100 mt-3" onClick={() => { setSelectedCats([]); setPriceRange([0, 200]); setOnlyNew(false); setOnlySale(false); setSort('default'); }}>
               Clear Filters
             </button>
           </aside>
@@ -131,11 +131,11 @@ const Shop = () => {
 
             {totalPages > 1 && (
               <div className="pagination-custom">
-                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p-1))} disabled={page===1}>‹</button>
-                {Array.from({length: totalPages}, (_, i) => (
-                  <button key={i+1} className={`page-btn${page===i+1?' active':''}`} onClick={() => setPage(i+1)}>{i+1}</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button key={i + 1} className={`page-btn${page === i + 1 ? ' active' : ''}`} onClick={() => setPage(i + 1)}>{i + 1}</button>
                 ))}
-                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p+1))} disabled={page===totalPages}>›</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
               </div>
             )}
           </main>
